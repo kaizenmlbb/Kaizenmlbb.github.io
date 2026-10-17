@@ -31,6 +31,12 @@ h1{font-size:36px;letter-spacing:.12em;margin:15px 0 2px;font-weight:900}
 .donate{margin-top:16px;padding:14px;border-radius:18px;border:1px solid rgba(196,92,255,.28);background:linear-gradient(135deg,rgba(118,25,180,.20),rgba(255,255,255,.04))}
 .donate b{display:block;font-size:14px;margin-bottom:5px}
 .donate small{color:#cdbddd}
+.donate-card{margin-top:12px;padding:16px;border:1px solid rgba(196,92,255,.32);border-radius:18px;background:linear-gradient(135deg,rgba(122,32,255,.18),rgba(255,255,255,.035))}
+.donate-card .eyebrow{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#c9a3ff}
+.donate-card .message{font-size:14px;line-height:1.55;color:#e9e1f2;margin:8px 0 14px}
+.card-number{font-size:clamp(17px,4.5vw,21px);font-weight:800;letter-spacing:.055em;word-spacing:2px;padding:14px 12px;border-radius:13px;background:rgba(0,0,0,.32);border:1px solid rgba(255,255,255,.10);text-align:center;white-space:nowrap}
+.copy-card{width:100%;margin-top:10px;border:0;border-radius:13px;padding:13px 15px;background:linear-gradient(90deg,#7928ff,#bb42ff);color:#fff;font:700 14px inherit;cursor:pointer}
+.copy-card:active{transform:scale(.99)}
 .qr-wrap{margin-top:18px;display:flex;align-items:center;gap:14px;padding:13px;border-radius:18px;background:#fff;color:#111}
 .qr-wrap img{width:92px;height:92px;border-radius:8px}
 .qr-wrap small{display:block;color:#555;margin-top:4px}
@@ -70,6 +76,13 @@ h1{font-size:36px;letter-spacing:.12em;margin:15px 0 2px;font-weight:900}
       <b>💜 Поддержать Kaizen</b>
       <small>Выбирай любой способ — ссылки ведут напрямую на сервисы.</small>
     </div>
+    <div class="donate-card">
+      <div class="eyebrow">Поддержка • заказы • переводы</div>
+      <p class="message">Если тебе близок мой вайб или хочешь заказать что-то у меня — можешь поддержать напрямую.
+      <br>Любой перевод ценю. Спасибо, что ты здесь. 💜</p>
+      <div class="card-number" id="supportCardNumber">5232 4410 1785 9450</div>
+      <button class="copy-card" type="button" id="copyCardButton">Скопировать номер карты</button>
+    </div>
     <div class="qr-wrap">
       <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASgAAAEoAQAAAADDfFG0AAAB7ElEQVR4nO2awYojQQxDpSX//8tvD7arqicszKlt2HIgPUkLRgiXLbtj9Iv48xvQRV3Ud1AJxvmOOO4wlf37qI9SIwsLCVkYGVN3xrLv0UtOzUorydjHnansW1HGEpZsyfwD9T6vsShjqoLtaz+vSaiPtKRJuUxkF/vOVPa9/fH7VZCp7N9HHXUqO6QVSXZWsKnsW/QyR61HkiUplYvzOZV9T35FRkkru8pSUIZiKvumei+laKGYM7VkIunGsm+s91RDTOeaIxFw6/0Z1KyYOqWCUFPk7Y9nuEZEjjKP82SSgKnse+qXhRyFPVpi9kpJORlNZd/UH9HDb5WPUFxbeA1GGWsZC9sGJDtr/+2PP1GOmhVpVVJJ0Szdx2soKhOLSDPv/rgXY4PZv4+yXJnk6o/LtHL3hV8okLGAGr8jxbbRn8z+XVRIEirVMjq/MatDTmXf5FcP51BPO9KEceftZ1RCPWx+7iWsOqBT2TfN2zxG7WOUzI93flzx3K+WFcsjGTXsnscznvt76lL7/FjqTGXfM2/vEpZv1SjX07Wp7Hv0WiUe2ezhO8bK61fP+Ow/9+OO8hFO0zqWfateIdbaS5+2bCr7Jr2y5McvTMDL6l//9TNivyppV62YvfMhW3iLqexb/ddL//Gi/ifUX5qoG/BGpfCtAAAAAElFTkSuQmCC" alt="QR-код Kaizen">
       <div><b>Наведи камеру</b><small>откроется мой TikTok</small></div>
@@ -77,5 +90,28 @@ h1{font-size:36px;letter-spacing:.12em;margin:15px 0 2px;font-weight:900}
   </section>
   <div class="footer">KAIZEN • DIGITAL CARD</div>
 </main>
+<script>
+(function(){
+  const button = document.getElementById('copyCardButton');
+  const number = '5232441017859450';
+  button.addEventListener('click', async function(){
+    try {
+      await navigator.clipboard.writeText(number);
+      button.textContent = 'Номер скопирован ✓';
+    } catch (e) {
+      const field = document.createElement('textarea');
+      field.value = number;
+      field.style.position = 'fixed';
+      field.style.opacity = '0';
+      document.body.appendChild(field);
+      field.select();
+      const copied = document.execCommand('copy');
+      field.remove();
+      button.textContent = copied ? 'Номер скопирован ✓' : 'Номер карты: 5232 4410 1785 9450';
+    }
+    setTimeout(function(){ button.textContent = 'Скопировать номер карты'; }, 2200);
+  });
+})();
+</script>
 </body>
 </html>
